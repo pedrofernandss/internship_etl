@@ -1,4 +1,2 @@
-selenium==4.10.0  # Automates job scraping from LinkedIn
-requests==2.31.0  # Sends job postings to Discord via webhooks
-beautifulsoup4==4.12.2  # Parses HTML for job data extraction (optional)
-playwright==1.41.0  # Alternative to Selenium for faster scraping
+beautifulsoup4==4.12.2  
+requests==2.31.0 
