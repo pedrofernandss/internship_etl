@@ -1,3 +1,3 @@
 # Job Hunter
 
-This is a specialized job hunter designed to find opportunities for entry-level developers and data scientists. The results are available in a dedicated Discord channel.
+This is a specialized job hunter designed to find internship and entry-level opportunities for developers and data scientists. The results will be are available in a dedicated Discord channel soon.
