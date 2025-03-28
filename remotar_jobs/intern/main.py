@@ -2,6 +2,8 @@ from typing import List
 import requests
 from datetime import datetime, timedelta
 
+from database.main import save_data
+
 def request_jobs_list():
     url = "https://api.remotar.com.br/jobs?search=&tagId=10&categoryId=4,7,15,13,14"
     response = requests.get(url)
@@ -37,6 +39,7 @@ def clean_data():
                 "created_at": creation_date
             }
 
+        save_data(job_data)
         recent_jobs.append(job_data)
 
     return recent_jobs
