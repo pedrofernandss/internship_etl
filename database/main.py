@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS vagas (
     title TEXT NOT NULL,
     link TEXT NOT NULL,
     company_name TEXT NOT NULL,
-    created_at TEXT NOT NULL,   
+    created_at TEXT NOT NULL 
 )
 ''')
 
@@ -20,7 +20,7 @@ def is_registered(job_id: str) -> bool:
     connection = sqlite3.connect("vagas.db")
     cursor = connection.cursor()
 
-    cursor.execute('SELECT 1 FROM vagas WHERE id = ?', (job_id))
+    cursor.execute('SELECT 1 FROM vagas WHERE id = ?', (job_id,))
     result = cursor.fetchone()
 
     connection.close()
@@ -32,7 +32,7 @@ def save_data(data: dict):
     cursor = connection.cursor()
 
     cursor.execute('''
-    INSERT INTO vagas (id, title, description, link, company_name, created_at)
+    INSERT INTO vagas (id, title, link, company_name, created_at)
     VALUES (?, ?, ?, ?, ?, ?)
     ''', (data['id'], data['title'], data['description'],
           data['link'], data['company_name'], data['created_at']))
