@@ -32,9 +32,9 @@ async def send_scheduled_message():
                 f"Caso decida se inscrever, não esqueça de personalizar seu currículo! 😉\n"
                 )
                 await channel.send(job_message)
-                await asyncio.sleep(5)
+                await asyncio.sleep(60)
 
-        await asyncio.sleep(5) 
+        await asyncio.sleep(3600) 
                 
 @bot.event
 async def on_ready():
