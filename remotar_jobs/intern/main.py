@@ -1,7 +1,14 @@
+from typing import List
 import requests
 from datetime import datetime, timedelta
 
-def is_new_job(creation_date: str) -> bool:
+def request_jobs_list():
+    url = "https://api.remotar.com.br/jobs?search=&tagId=10&categoryId=4,7,15,13,14"
+    response = requests.get(url)
+
+    return response
+
+def is_recent_job(creation_date: str) -> bool:
     creation_date = datetime.fromisoformat(creation_date)
     current_date = datetime.now(creation_date.tzinfo)
 
@@ -12,40 +19,24 @@ def is_new_job(creation_date: str) -> bool:
     else: 
         return False
     
+def clean_data():
+    data = request_jobs_list().json()
+    jobs_list = data.get("data", [])
 
-url = "https://api.remotar.com.br/jobs?search=&tagId=10&categoryId=4,7,15,13,14"
-response = requests.get(url)
+    recent_jobs = []
 
-data = response.json()
-jobs_list = data.get("data", [])
+    for job in jobs_list:
+        creation_date = job.get("createdAt")
+            
+        if is_recent_job(creation_date):
+            job_data = {
+                "id": job.get(""),
+                "title": job.get("title"),       
+                "link": job.get("externalLink"),
+                "company_name": job.get("company", {}).get("name"),
+                "created_at": creation_date
+            }
 
-for job in jobs_list:
-    creation_date = job.get("createdAt")
-        
-    if is_new_job(creation_date):
-        title = job.get("title")
-        description = job.get("description")       
-        link = job.get("externalLink")
+        recent_jobs.append(job_data)
 
-        company = job.get("company")
-        company_name = company.get("name")
-
-        print(f"""
-              A empresa {company_name} anunciou uma nova vaga para {title}! ✨✨
-
-                    🧑‍🎓 Nível: Estágio
-                    📍 Localidade: Remoto
-
-                    Descrição da vaga:
-
-                    {description}
-
-                    
-                    🌐 Link: {link}
-
-                    Caso decida se inscrever, não esqueça de personalizar seu currículo! 😉
-
-                    Que a sorte esteja sempre a seu favor! 🤗
-              """)
-
-    
+    return recent_jobs
