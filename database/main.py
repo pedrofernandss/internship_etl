@@ -1,6 +1,6 @@
 import sqlite3
 
-connection = sqlite3.connect("vagas.db")
+connection = sqlite3.connect("database/vagas.db")
 cursor = connection.cursor()
 
 cursor.execute('''
@@ -17,7 +17,7 @@ connection.commit()
 connection.close()
 
 def is_registered(job_id: str) -> bool:
-    connection = sqlite3.connect("vagas.db")
+    connection = sqlite3.connect("database/vagas.db")
     cursor = connection.cursor()
 
     cursor.execute('SELECT 1 FROM vagas WHERE id = ?', (job_id,))
@@ -28,7 +28,7 @@ def is_registered(job_id: str) -> bool:
     return result is not None
 
 def save_data(data: dict):
-    connection = sqlite3.connect("vagas.db")
+    connection = sqlite3.connect("database/vagas.db")
     cursor = connection.cursor()
 
     cursor.execute('''
