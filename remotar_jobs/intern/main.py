@@ -7,7 +7,7 @@ def is_new_job(creation_date: str) -> bool:
 
     time_difference = current_date - creation_date
         
-    if time_difference < timedelta(days=10):
+    if time_difference < timedelta(days=2):
         return True
     else: 
         return False
