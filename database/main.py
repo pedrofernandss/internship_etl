@@ -15,3 +15,14 @@ CREATE TABLE IF NOT EXISTS vagas (
 
 connection.commit()
 connection.close()
+
+def is_registered(job_id: str) -> bool:
+    connection = sqlite3.connect("vagas.db")
+    cursor = connection.cursor()
+
+    cursor.execute('SELECT 1 FROM vagas WHERE id = ?', (job_id))
+    result = cursor.fetchone()
+
+    connection.close()
+
+    return result is not None
