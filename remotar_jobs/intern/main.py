@@ -2,7 +2,7 @@ from typing import List
 import requests
 from datetime import datetime, timedelta
 
-from database.main import save_data
+from database.main import is_registered, save_data
 
 def request_jobs_list():
     url = "https://api.remotar.com.br/jobs?search=&tagId=10&categoryId=4,7,15,13,14"
@@ -31,15 +31,20 @@ def clean_data():
         creation_date = job.get("createdAt")
             
         if is_recent_job(creation_date):
+            job_id = job.get("id")
+
+            if is_registered(job_id):
+                continue
+            
             job_data = {
-                "id": job.get(""),
+                "id": job.get("id"),
                 "title": job.get("title"),       
                 "link": job.get("externalLink"),
                 "company_name": job.get("company", {}).get("name"),
                 "created_at": creation_date
             }
 
-        save_data(job_data)
-        recent_jobs.append(job_data)
+            save_data(job_data)
+            recent_jobs.append(job_data)
 
     return recent_jobs
