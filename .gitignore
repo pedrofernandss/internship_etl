@@ -3,3 +3,6 @@ venv/
 
 #Ignore enviroment variables
 .env
+
+# Ignore compiled files
+__pycache__/
