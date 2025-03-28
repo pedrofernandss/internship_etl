@@ -27,14 +27,15 @@ def is_registered(job_id: str) -> bool:
 
     return result is not None
 
-def save_data(job_id: str, title: str, link: str, company_name: str, created_at: str):
+def save_data(data: dict):
     connection = sqlite3.connect("vagas.db")
     cursor = connection.cursor()
 
     cursor.execute('''
     INSERT INTO vagas (id, title, description, link, company_name, created_at)
     VALUES (?, ?, ?, ?, ?, ?)
-    ''', (job_id, title, description, link, company_name, created_at))
+    ''', (data['id'], data['title'], data['description'],
+          data['link'], data['company_name'], data['created_at']))
     
     connection.commit()
     connection.close()
