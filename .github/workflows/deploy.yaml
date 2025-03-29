@@ -11,6 +11,7 @@ jobs:
         steps:
         - uses: actions/checkout@v3
         - run: curl -fsSL https://railway.app/install.sh | sh
+        - run: echo "RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}"
         - run: railway up --service=${{ secrets.RAILWAY_SERVICE_ID }}
           env:
               RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
