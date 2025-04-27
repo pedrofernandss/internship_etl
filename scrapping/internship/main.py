@@ -3,10 +3,10 @@ import os
 import discord 
 from discord.ext import commands
 
-from remotar_jobs.intern.main import clean_data
+from internship.sites.remotar import clean_data
 
 discord_token = os.environ['DISCORD_TOKEN']
-channel_id = int(os.environ['CHANNEL_ID'])
+channel_ids = [int(id_) for id_ in os.environ['CHANNEL_IDS'].split(',')]
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix='/', intents=intents)
 
 async def send_scheduled_message():
     await bot.wait_until_ready()
-    channel = bot.get_channel(channel_id)
+    channels = [bot.get_channel(id_) for id_ in channel_ids]
 
     while not bot.is_closed():
         new_jobs = clean_data()
@@ -31,7 +31,7 @@ async def send_scheduled_message():
                 f"🔗 [Acesse a vaga aqui]({job['link']})\n\n" 
                 f"Caso decida se inscrever, não esqueça de personalizar seu currículo! 😉\n"
                 )
-                await channel.send(job_message)
+                await channels.send(job_message)
                 await asyncio.sleep(60)
 
         await asyncio.sleep(3600) 
