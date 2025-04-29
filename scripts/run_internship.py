@@ -1,9 +1,12 @@
 import asyncio
 import os
+import sys
 import discord 
 from discord.ext import commands
 
 from scrapping.internship.sites.remotar import clean_data
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 discord_token = os.environ['DISCORD_TOKEN']
 channel_ids = [int(id_) for id_ in os.environ['CHANNEL_ID_INTERNSHIP'].split(',')]

@@ -1,1 +1,1 @@
-worker: python scripts/run_internship.py
+worker: python -m scripts.run_internship
