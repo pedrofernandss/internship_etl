@@ -1,0 +1,1 @@
+worker: python scripts/run_internship.py
