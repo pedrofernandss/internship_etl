@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from database.main import is_registered, save_data
 
 def request_jobs_list():
-    url = "https://api.remotar.com.br/jobs?search=&tagId=10&categoryId=4,7,15,13,14"
+    url = "https://api.remotar.com.br/jobs?search=&tagId=10,17&categoryId=4,7,8,15,13,14"
     response = requests.get(url)
 
     return response
@@ -41,6 +41,7 @@ def clean_data():
                 "title": job.get("title"),       
                 "link": job.get("externalLink"),
                 "company_name": job.get("company", {}).get("name"),
+                "category": job.get()
                 "created_at": creation_date
             }
 
