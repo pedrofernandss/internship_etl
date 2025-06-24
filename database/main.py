@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS vagas (
     title TEXT NOT NULL,
     link TEXT NOT NULL,
     company_name TEXT NOT NULL,
-    category TEXT NOT NULL,
+    tag TEXT NOT NULL,
     created_at TEXT NOT NULL
 )
 ''')
@@ -33,10 +33,10 @@ def save_data(data: dict):
     cursor = connection.cursor()
 
     cursor.execute('''
-    INSERT INTO vagas (id, title, link, company_name, category, created_at)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO vagas (id, title, link, company_name, tag, created_at)
+    VALUES (?, ?, ?, ?, ?, ?)
     ''', (data['id'], data['title'],
-          data['link'], data['company_name'], data['category'], data['created_at']))
+          data['link'], data['company_name'], data['tag'], data['created_at']))
     
     connection.commit()
     connection.close()
